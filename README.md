@@ -31,7 +31,7 @@
   `close / closes / closed / fix / fixes / fixed / resolve /resolves / resolved`
 ```
 < 예시 >
-[BE] feat: SPRING MEGAZINE #1
+[BE] feat: SPRING MEGAZINE close #1
 ```
 
 ### 3. 보안 관련
