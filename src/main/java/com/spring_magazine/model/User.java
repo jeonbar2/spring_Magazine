@@ -10,8 +10,6 @@ import javax.persistence.*;
 @Entity // DB 테이블 역할을 합니다.
 @Builder
 public class User {
-
-
     // nullable: null 허용 여부
 // unique: 중복 허용 여부 (false 일때 중복 허용)
     @Id
