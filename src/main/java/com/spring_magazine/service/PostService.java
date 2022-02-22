@@ -45,4 +45,13 @@ public class PostService {
         return PostDto.from(saved);
     }
 
+    @Transactional
+    public PostDto delete(Long postId){
+        Post deleted = postRepository.findById(postId).orElseThrow(
+                ()-> new NotFoundException("게시글postId가 없음")
+        );
+        postRepository.deleteById(postId);
+        return PostDto.from(deleted);
+    }
+
 }

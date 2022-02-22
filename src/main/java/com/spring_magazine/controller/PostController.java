@@ -28,9 +28,16 @@ public class PostController {
     }
 
     @PostMapping("/api/post")
-    public ResponseEntity<PostDto> postPost(PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<PostDto> postPost(@Valid PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         String reqUsername = userDetails.getUser().getRealName();
         PostDto response = postService.save(requestDto, reqUsername);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/api/post/{postId}")
+    public ResponseEntity<PostDto> deletePost(@PathVariable Long postId){
+
+        PostDto response = postService.delete(postId);
         return ResponseEntity.ok(response);
     }
 }

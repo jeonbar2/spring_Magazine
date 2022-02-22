@@ -6,15 +6,17 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+
 @Builder
 @AllArgsConstructor
 @Getter
 public class PostRequestDto {
 
-    @NotNull
+    @NotBlank(message = "이미지입력하세요")
     private String image;
-    @NotNull
+    @NotBlank(message = "내용을입력하세요")
     private String contents;
-    @NotNull
+    @NotBlank(message = "유저네임을입력하세요")
     private String username;
 }
