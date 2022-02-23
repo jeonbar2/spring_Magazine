@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ErrorHandler {
     // Bean Validation에서 터지는 에러
+
     @ResponseStatus(HttpStatus.BAD_REQUEST) // 400
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public com.spring_magazine.common.error.NotValidResponse notValid(MethodArgumentNotValidException e) {
         // 오류난 입력값이 여러개여도 하나씩만 보여준다.
+        System.out.println("valid에러 잡나?");
         FieldError fieldError = e.getBindingResult().getFieldErrors().get(0);
         return com.spring_magazine.common.error.NotValidResponse.builder()
                 .field(fieldError.getField())               // 오류난 필드명

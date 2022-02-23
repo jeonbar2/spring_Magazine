@@ -83,10 +83,11 @@
 
     function likeSubmit() {
 
-        let postId = $("#likePostId").val();
-        console.log(image, contents);
+        let postId = $("#likepostId").val();
+        console.log(postId);
+        console.log("ssss");
         $.ajax({
-            type: "PUT",
+            type: "POST",
             url: "/api/post/like",
             data: {
                 "postId": postId
@@ -150,6 +151,16 @@
 <br>
 
 <br>
+
+====================좋아요 api================================
+<br>
+<div class="login-id-label">postId</div>
+<input class="likes" id="likepostId">
+
+<button onclick="likeSubmit()">이버튼 왜 안먹혀 시발</button>
+<br>
+
+
 
 
 
