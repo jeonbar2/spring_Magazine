@@ -36,8 +36,8 @@ public class PostService {
 //        if(!(reqUsername.equals(requestDto.getUsername()))){
 //            throw new NotFoundException("없어");
 //        }
-        System.out.println(requestDto.getUsername());
-        User user = userRepository.findByUsername(requestDto.getUsername()).orElseThrow(
+
+        User user = userRepository.findByUsername(reqUsername).orElseThrow(
                 ()->new NotFoundException("없어.")
         );
         Post post = new Post(requestDto, user);
@@ -52,6 +52,16 @@ public class PostService {
         );
         postRepository.deleteById(postId);
         return PostDto.from(deleted);
+    }
+
+    @Transactional
+    public PostDto update(Long postId, PostRequestDto requestDto){
+        Post post = postRepository.findById(postId).orElseThrow(
+                ()->new NotFoundException("게시글이 없습니다.")
+        );
+
+        post.update(requestDto);
+        return PostDto.from(post);
     }
 
 }

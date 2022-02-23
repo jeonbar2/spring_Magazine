@@ -29,7 +29,7 @@ public class PostController {
 
     @PostMapping("/api/post")
     public ResponseEntity<PostDto> postPost(@Valid PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        String reqUsername = userDetails.getUser().getRealName();
+        String reqUsername = userDetails.getUser().getUsername();
         PostDto response = postService.save(requestDto, reqUsername);
         return ResponseEntity.ok(response);
     }
@@ -38,6 +38,13 @@ public class PostController {
     public ResponseEntity<PostDto> deletePost(@PathVariable Long postId){
 
         PostDto response = postService.delete(postId);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/api/post/{postId}")
+    public ResponseEntity<PostDto> updatePost(PostRequestDto requestDto,@PathVariable Long postId){
+
+        PostDto response = postService.update(postId,requestDto);
         return ResponseEntity.ok(response);
     }
 }

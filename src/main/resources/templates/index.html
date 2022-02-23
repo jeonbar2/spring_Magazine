@@ -20,8 +20,8 @@
     function submit() {
         let image = $("#image").val();
         let contents = $("#contents").val();
-        let username = $("#username").val();
-        console.log(image, contents, username);
+
+        console.log(image, contents);
         $.ajax({
             type: "POST",
             url: "/api/post",
@@ -29,7 +29,6 @@
             data: {
                 "image": image,
                 "contents": contents,
-                "username": username
             },
 
             success: function (response) {
@@ -65,14 +64,15 @@
         let image = $("#upimage").val();
         let contents = $("#upcontents").val();
         let postId = $("#uppostId").val();
+
         console.log(image, contents);
         $.ajax({
             type: "PUT",
             url: "/api/post/" + postId,
             data: {
+
                 "image": image,
                 "contents": contents
-
             },
 
             success: function (response) {
@@ -123,8 +123,6 @@
 <div class="login-id-label">contents</div>
 <input class="contents" id="contents">
 
-<div class="login-id-label">username</div>
-<input class="username" id="username">
 
 <button onclick="submit()">이버튼 왜 안먹혀 시발</button>
 <br>
@@ -132,9 +130,27 @@
 ====================글 삭제 api================================
 <br>
 
+<div class ="login-id-label">postId</div>
 <input class="postId" id="postId">
 <button onclick="deletePost()">게시글 삭제하기 시발</button>
 <br>
+====================글 업데이트 api================================
+<br>
+<div class="login-id-label">postId</div>
+<input class="image" id="uppostId">
+
+<div class="login-id-label">image</div>
+<input class="image" id="upimage">
+
+<div class="login-id-label">contents</div>
+<input class="contents" id="upcontents">
+
+
+<button onclick="upSubmit()">이버튼 왜 안먹혀 시발</button>
+<br>
+
+<br>
+
 
 
 

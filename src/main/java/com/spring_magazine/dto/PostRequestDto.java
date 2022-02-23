@@ -17,6 +17,4 @@ public class PostRequestDto {
     private String image;
     @NotBlank(message = "내용을입력하세요")
     private String contents;
-    @NotBlank(message = "유저네임을입력하세요")
-    private String username;
 }
