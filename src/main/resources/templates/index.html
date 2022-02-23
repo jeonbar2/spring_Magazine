@@ -25,14 +25,18 @@
         $.ajax({
             type: "POST",
             url: "/api/post",
-
-            data: {
+            contentType: 'application/json',
+            data: JSON.stringify({
                 "image": image,
                 "contents": contents,
-            },
+            }),
 
             success: function (response) {
                 console.log(response);
+            },
+            error:function(response){
+
+                console.log(response.responseJSON)
             }
         });
 

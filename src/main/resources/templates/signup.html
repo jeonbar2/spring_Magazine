@@ -9,39 +9,73 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>회원가입 페이지</title>
     <script>
-        function onclickAdmin() {
-// Get the checkbox
-            var checkBox = document.getElementById("admin-check");
-// Get the output text
-            var box = document.getElementById("admin-token");
+        function submit() {
+            let username = $("#username").val();
+            let realName = $("#realName").val();
+            let password = $("#password").val();
+            let passwordAgain = $("#passwordAgain").val();
 
-// If the checkbox is checked, display the output text
-            if (checkBox.checked == true){
-                box.style.display = "block";
-            } else {
-                box.style.display = "none";
-            }
+
+            $.ajax({
+                type: "POST",
+                url: "/user/signup",
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "username": username,
+                    "realName": realName,
+                    "password":password,
+                    "passwordAgain":passwordAgain
+                }),
+
+                success: function (response) {
+                    console.log(response);
+                },
+                error:function(response){
+
+                    console.log(response.responseJSON)
+                }
+            });
+
         }
+
     </script>
 </head>
 <body>
 <div id="login-form">
     <div id="login-title">Sign up megazine</div>
 
-    <form action="/user/signup" method="post">
-        <div class="login-id-label">Username</div>
-        <input type="text" name="username" placeholder="Username" class="login-input-box">
+<!--    <form action="/user/signup" method="post">-->
+<!--        <div class="login-id-label">Username</div>-->
+<!--        <input type="text" name="username" placeholder="Username" class="login-input-box">-->
 
-        <div class="login-id-label">realName</div>
-        <input type="text" name="realName" placeholder="realName" class="login-input-box">
+<!--        <div class="login-id-label">realName</div>-->
+<!--        <input type="text" name="realName" placeholder="realName" class="login-input-box">-->
 
-        <div class="login-id-label">Password</div>
-        <input type="password" name="password" class="login-input-box">
+<!--        <div class="login-id-label">Password</div>-->
+<!--        <input type="password" name="password" class="login-input-box">-->
 
-        <button id="login-id-submit">회원 가입</button>
-    </form>
+<!--        <div class="login-id-label">Password확인</div>-->
+<!--        <input type="password" name="passwordAgain" class="login-input-box">-->
+
+<!--        <button id="login-id-submit">회원 가입</button>-->
+<!--    </form>-->
+
+    <div class="login-id-label">아이디</div>
+    <input class="username" id="username">
+
+    <div class="login-id-label">이름</div>
+    <input  class="realName" id="realName">
+
+    <div class="login-id-label">비밀번호</div>
+    <input type="password" class="password" id="password">
+
+    <div class="login-id-label">비밀번호 확인</div>
+    <input type="password" class="passwordAgain" id="passwordAgain">
+
+    <button onclick="submit()">이버튼 왜 안먹혀 시발</button>
 </div>
 </body>
 </html>

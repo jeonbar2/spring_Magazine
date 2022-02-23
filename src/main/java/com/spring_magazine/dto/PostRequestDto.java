@@ -13,7 +13,6 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @Getter
 public class PostRequestDto {
-
     @NotEmpty(message = "이미지입력하세요")
     private String image;
     @NotEmpty(message = "내용을입력하세요")
