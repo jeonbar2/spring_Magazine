@@ -57,8 +57,13 @@
         $.ajax({
             type: "Delete",
             url: "/api/post/" + postId,
+            contentType: 'application/json',
             success: function (response) {
                 console.log(response);
+            },
+            error:function(response){
+
+                console.log(response.responseJSON)
             }
         });
 
@@ -81,6 +86,9 @@
 
             success: function (response) {
                 console.log(response);
+            },
+            error:function(response){
+                console.log(response.responseJSON)
             }
         });
     }
@@ -93,11 +101,16 @@
         $.ajax({
             type: "POST",
             url: "/api/post/like",
-            data: {
+            contentType: 'application/json',
+            data:JSON.stringify({
                 "postId": postId
-            },
+            }),
             success: function (response) {
                 console.log(response);
+            },
+            error:function(response){
+
+                console.log(response.responseJSON)
             }
         });
 

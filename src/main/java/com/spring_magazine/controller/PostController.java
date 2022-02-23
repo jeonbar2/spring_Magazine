@@ -13,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.security.Principal;
 import java.sql.SQLOutput;
 import java.util.List;
@@ -41,16 +42,22 @@ public class PostController {
     }
 
     @DeleteMapping("/api/post/{postId}")
-    public ResponseEntity<PostDto> deletePost(@PathVariable Long postId){
-
-        PostDto response = postService.delete(postId);
+    public ResponseEntity<PostDto> deletePost(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        if (userDetails==null){
+            System.out.println("로그인해라");
+            throw new NotFoundException("로그인해라");
+        }
+        PostDto response = postService.delete(postId,userDetails.getUsername());
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/api/post/{postId}")
-    public ResponseEntity<PostDto> updatePost(PostRequestDto requestDto,@PathVariable Long postId){
-
-        PostDto response = postService.update(postId,requestDto);
+    public ResponseEntity<PostDto> updatePost(@Valid PostRequestDto requestDto,@PathVariable Long postId,@AuthenticationPrincipal UserDetailsImpl userDetails){
+        if (userDetails==null){
+            System.out.println("로그인해라");
+            throw new NotFoundException("로그인해라");
+        }
+        PostDto response = postService.update(postId,requestDto,userDetails.getUsername());
         return ResponseEntity.ok(response);
     }
 }

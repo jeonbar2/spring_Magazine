@@ -12,6 +12,8 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,19 +48,25 @@ public class PostService {
     }
 
     @Transactional
-    public PostDto delete(Long postId){
+    public PostDto delete(Long postId, String username){
         Post deleted = postRepository.findById(postId).orElseThrow(
                 ()-> new NotFoundException("게시글postId가 없음")
         );
+        if (!(deleted.getUser().getUsername().equals(username))){
+            throw new NotFoundException("권한이 없습니다.");
+        }
         postRepository.deleteById(postId);
         return PostDto.from(deleted);
     }
 
     @Transactional
-    public PostDto update(Long postId, PostRequestDto requestDto){
+    public PostDto update(Long postId, PostRequestDto requestDto,String username){
         Post post = postRepository.findById(postId).orElseThrow(
                 ()->new NotFoundException("게시글이 없습니다.")
         );
+        if(!(post.getUser().getUsername().equals(username))){
+            throw new NotFoundException("권한이 없습니다.");
+        }
 
         post.update(requestDto);
         return PostDto.from(post);

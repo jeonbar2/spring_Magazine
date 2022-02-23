@@ -3,8 +3,10 @@ package com.spring_magazine.controller;
 
 import com.spring_magazine.common.error.NotFoundException;
 import com.spring_magazine.dto.SignupRequestDto;
+import com.spring_magazine.security.UserDetailsImpl;
 import com.spring_magazine.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,13 +26,19 @@ public class UserController {
 
     // 회원 로그인 페이지
     @GetMapping("/user/login")
-    public String login() {
+    public String login(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        if (userDetails!=null){
+            throw new NotFoundException("이미 로그인됨");
+        }
         return "login";
     }
 
     // 회원 가입 페이지
     @GetMapping("/user/signup")
-    public String signup() {
+    public String signup(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        if (userDetails!=null){
+            throw new NotFoundException("이미 로그인됨");
+        }
         return "signup";
     }
 
