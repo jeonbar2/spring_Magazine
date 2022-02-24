@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # DB Source
+    url: ${RDS_URL}
+    # DB username
+    username: ${RDS_USERNAME}
+    # DB password
+    password: ${RDS_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+
