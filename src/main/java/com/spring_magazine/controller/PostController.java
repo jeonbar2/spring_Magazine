@@ -26,6 +26,7 @@ public class PostController {
 
     @GetMapping("/api/post")
     public ResponseEntity<List<PostDto>> getPost(){
+        System.out.println("ss");
         List<PostDto> response = postService.getAll();
         return ResponseEntity.ok(response) ;
     }
