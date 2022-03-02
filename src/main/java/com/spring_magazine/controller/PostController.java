@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,12 +33,13 @@ public class PostController {
     }
 
     @PostMapping("/api/post")
-    public ResponseEntity<PostDto> postPost(@Valid @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        if (userDetails==null){
+    public ResponseEntity<PostDto> postPost(@Valid @RequestBody PostRequestDto requestDto,Authentication authentication) {
+        if (authentication==null){
             System.out.println("로그인해라");
+            System.out.println(authentication.getName());
             throw new NotFoundException("로그인해라");
         }
-        String reqUsername = userDetails.getUser().getUsername();
+        String reqUsername = authentication.getName();
         PostDto response = postService.save(requestDto, reqUsername);
         return ResponseEntity.ok(response);
     }
